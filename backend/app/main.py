@@ -1,21 +1,25 @@
 from fastapi import FastAPI
 
+from app.core.config import settings
+
 app = FastAPI(
-    title="Personal Finance Intelligence API",
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
     description="Backend API for the Personal Finance Intelligence Platform",
-    version="1.0.0",
 )
 
 
 @app.get("/")
 def root():
     return {
-        "message": "Personal Finance Intelligence API is running 🚀"
+        "message": f"{settings.APP_NAME} is running 🚀"
     }
 
 
 @app.get("/health")
 def health_check():
     return {
-        "status": "healthy"
+        "status": "healthy",
+        "debug": settings.DEBUG,
+        "version": settings.APP_VERSION,
     }
